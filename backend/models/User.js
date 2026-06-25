@@ -12,12 +12,14 @@ const userSchema=new mongoose.Schema({
   stream:{type:String},
   semester:{type:String},
   year:{type:String},
-  rollno:{type:String},
-  isProfileComplete:{typr:Boolean,default:false},
-  studentId:{type:String,required:true,unique:true,sparse:true},
+  rollNo:{type:String},
+  isProfileComplete:{type:Boolean,default:false},
+  studentId:{type:String,unique:true,sparse:true},
   role:{type:String,enum:['user','admin'],default:'user'},
 },{
   timestamps:true
 });
 
-module.exports=mongoose.model('User',userSchema);
+const User = mongoose.model('User', userSchema);
+
+export default User;

@@ -1,17 +1,17 @@
-const { default: sendOtp } = require("../utils/sendOTP");
+import sendOtp from '../utils/sendOTP.js'
 import bcrypt, { hash } from 'bcryptjs';
 import {v4 as uuidv4} from 'uuid';
 import jwt from 'jsonwebtoken';
+import User from "../models/User.js";
 
-
-exports.registerUser=async(req,res)=>{
+export const registerUser=async(req,res)=>{
   try {
     const {name,email,password,phone}=req.body;
     if(!email) return res.status(400).json({
       message:"Email is required",
     })
 
-    const cleanPhone=phone ? phone.toString().replace(/\D/g,""):"",;
+    const cleanPhone=phone ? phone.toString().replace(/\D/g,""):"";
     if(cleanPhone.length!==10){
       return res.status(400).json({
         message:"Phone number must be of 10 digits",
@@ -66,13 +66,13 @@ exports.registerUser=async(req,res)=>{
   }
 }
 
-exports.verifyOtp=async(req,res)=>{
+export const verifyOtp=async(req,res)=>{
   try {
     const {email,otp}=req.body;
     if(!email) return res.status(400).json({message:"Email is required"});
     const user=await User.findOne({email});
     if(!user) return res.status(400).json({message:"User not registered"});
-    if(user.otp!==otp ||new.Date()>new.Date(user.otpExpiry)){
+    if(user.otp!==otp ||new Date()>new Date(user.otpExpiry)){
       return res.status(400).json("Invalid or Expired OTP");
     }
     Object.assign(user,{isVerified:true,otp:null,otpExpiry:null});
@@ -84,7 +84,7 @@ exports.verifyOtp=async(req,res)=>{
   }
 }
 
-exports.completeProfile=async(req,res)=>{
+export const completeProfile=async(req,res)=>{
   try {
     const {email,department,stream,semester,year,rollNo}=req.body;
     if(!email) return res.status(400).json({message:"Email is required"});
@@ -103,7 +103,7 @@ exports.completeProfile=async(req,res)=>{
   }
 }
 
-exports.loginUser=async(req,res)=>{
+export const loginUser=async(req,res)=>{
   try {
     const {email,password}=req.body;
     if(!email ||!password){
@@ -153,7 +153,7 @@ exports.loginUser=async(req,res)=>{
   }
 }
 
-exports.getProfile=async(req,res)=>{
+export const getProfile=async(req,res)=>{
   try {
     const user=await User.findById(req.user.id).select("-password");
     if(!user) return res.status(404).json({message:"User not found"});
@@ -167,7 +167,7 @@ exports.getProfile=async(req,res)=>{
   }
 }
 
-exports.updateProfile=async(req,res)=>{
+ export const updateProfile=async(req,res)=>{
   try {
     const {name,email,phone,department,stream,semester,academicYear,rollNumber}=req.body;
     const user=await User.findById(req.user.id);
@@ -209,7 +209,7 @@ exports.updateProfile=async(req,res)=>{
   }
 }
 
-exports.getUsers=async(req,res)=>{
+export const getUsers=async(req,res)=>{
   try {
     const users=await User.find({role:"user",isVerified:true,isProfileComplete:true}).select("-password");
     res.status(200).json({success:true,users});
@@ -219,7 +219,7 @@ exports.getUsers=async(req,res)=>{
   }
 }
 
-exports.registerAdmin=async(req,res)=>{
+export const registerAdmin=async(req,res)=>{
   try {
     const {name,email,phone,password}=req.body;
     if(!name||!email||!phone ||!password){

@@ -1,6 +1,6 @@
 import express from 'express';
-import  {registerUser,verifyOtp,completeProfile,loginUser,registerAdmin,getProfile,updateProfile,getUsers} from '../controllers/authController';
-import {authenticateToken,authorizeRoles} from '../middlewares/authMiddleware';
+import  {registerUser,verifyOtp,completeProfile,loginUser,registerAdmin,getProfile,updateProfile,getUsers} from '../controllers/authController.js';
+import {authenticateToken,authorizeRoles} from '../middlewares/authMiddleware.js';
 
 const authRouter=express.Router();
 

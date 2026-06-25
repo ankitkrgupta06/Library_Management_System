@@ -1,7 +1,7 @@
-import User from "../models/User";
+import User from "../models/User.js";
 import jwt from 'jsonwebtoken';
 
-exports.authenticateToken=async(req,res)=>{
+export const authenticateToken=async(req,res)=>{
   try {
     const authHeader=req.headers["authorization"];
     const token=authHeader && authHeader.split(" ")[1];
@@ -29,7 +29,7 @@ exports.authenticateToken=async(req,res)=>{
   }
 }
 
-exports.authorizeRoles=(...roles)=>{
+export const authorizeRoles=(...roles)=>{
   return (req,res,next)=>{
     if(!req.user ||!roles.includes(req.user.role)){
       return res.status(403).json({
