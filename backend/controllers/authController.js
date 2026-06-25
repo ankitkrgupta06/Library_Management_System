@@ -1,5 +1,5 @@
 const { default: sendOtp } = require("../utils/sendOTP");
-import bcrypt from 'bcryptjs';
+import bcrypt, { hash } from 'bcryptjs';
 import {v4 as uuidv4} from 'uuid';
 import jwt from 'jsonwebtoken';
 
@@ -211,10 +211,45 @@ exports.updateProfile=async(req,res)=>{
 
 exports.getUsers=async(req,res)=>{
   try {
-    const users=await User.find({role:"user",isVerified:true,isProfileComplete:true}).select("password");
+    const users=await User.find({role:"user",isVerified:true,isProfileComplete:true}).select("-password");
     res.status(200).json({success:true,users});
   } catch (error) {
     console.error("Error fetching students:",error);
     res.status(500).json({message:"Error fetching students ",error:error.message});
+  }
+}
+
+exports.registerAdmin=async(req,res)=>{
+  try {
+    const {name,email,phone,password}=req.body;
+    if(!name||!email||!phone ||!password){
+      return res.status(400).json({message:"Please enter all required fields"});
+    }
+
+    if(await User.findOne({email})){
+      return res.status(400).json({
+        message:"User already exists with this email"
+      })
+    }
+
+    const hashedPassword=await bcrypt.hash(password,10);
+    const user=await User.create({
+      name,
+      email:email.trim().toLowerCase(),
+      phone,
+      password:hashedPassword,
+      role:"admin",
+      isVerified:true
+    })
+
+    const {password:_,...userResponse}=user.toObject();
+    res.status(201).json({
+      success:true,
+      message:"Admin registered successfully",
+      user:userResponse
+    })
+  } catch (error) {
+    console.error("Error registering admin:",error);
+    res.status(500).json({message:"Error registering admin",error:error.message})
   }
 }
