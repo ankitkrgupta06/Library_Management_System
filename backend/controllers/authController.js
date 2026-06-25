@@ -3,6 +3,7 @@ import bcrypt, { hash } from 'bcryptjs';
 import {v4 as uuidv4} from 'uuid';
 import jwt from 'jsonwebtoken';
 import User from "../models/User.js";
+import otpGenerator from "otp-generator";
 
 export const registerUser=async(req,res)=>{
   try {
@@ -18,7 +19,7 @@ export const registerUser=async(req,res)=>{
       })
     }
 
-    const existingUser= await UserActivation.findOne({email});
+    const existingUser= await User.findOne({email});
     if(existingUser){
       if(existingUser.isVerified) return res.status(400).json({
         message:"User already exists",
@@ -26,7 +27,7 @@ export const registerUser=async(req,res)=>{
       await User.deleteOne({email});
     }
 
-     const otp=generate(6,{
+     const otp=otpGenerator.generate(6,{
       upperCaseAlphabets:false,
       lowerCaseAlphabets:false,
       specialChars:false
@@ -45,8 +46,8 @@ export const registerUser=async(req,res)=>{
      const otpExpiry=new Date(Date.now()+5*60*1000);
      const studentId=`ST-${uuidv4().slice(0,8).toUpperCase()}`;
 
-     const user=User.create({
-      user,
+     const user=await User.create({
+      name,
       email,
       phone:cleanPhone,
       password:hashedPassword,
