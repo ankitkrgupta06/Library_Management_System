@@ -32,7 +32,8 @@ export const searchStudentByRoll=async(req,res)=>{
     console.error("Error searching students by roll",error);
     res.status(500).json({
       success:false,
-      message:"Error searching students by roll"
+      message:"Error searching students by roll",
+      error:error.message
     });
   }
 }
