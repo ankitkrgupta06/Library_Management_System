@@ -2,6 +2,8 @@ import React from 'react'
 import Sidebar from '../components/Sidebar'
 import { BookMarked, ShieldCheck, Users } from 'lucide-react';
 import { useAuth } from '../shared/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { homeStyles as s } from '../assets/dummyStyles';
 
 const navItems=[
   {
@@ -40,10 +42,11 @@ const features=[
 
 function Home() {
   const {currentUser,logout}=useAuth();
+  const navigate=useNavigate();
   const footerItems=currentUser
     ?[
       {
-        label:"logout",
+        label:"Logout",
         icon:"login",
         kind:"primary",
         action:()=>{
@@ -53,7 +56,7 @@ function Home() {
       },
     ]
     :[
-      {label:"login",href:"/login",icon:"login",kind:"primary"},
+      {label:"Login",href:"/login",icon:"login",kind:"primary"},
       {
         label:"Sign Up",
         href:"/signup",
@@ -63,7 +66,7 @@ function Home() {
     ];
 
   return (
-    <div>
+    <div className={s.layoutContainer}>
       <Sidebar 
         title="ShelfWise" 
         subtitle="Library management portal" 
@@ -71,6 +74,17 @@ function Home() {
         navItems={navItems}
         footerItems={footerItems}
         />
+      <main className={s.mainContent}>
+        <div className={s.innerContainer}>
+          <section className={s.heroSection}>
+            <div className={s.heroGrid}>
+              <div>
+                <span className={s.heroBadge}>Library Management Website</span>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>  
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import { sidebarStyles as s } from '../assets/dummyStyles'
-import {Bell, BookCopy, ChartNoAxesCombined, ChevronRight, Menu, ShieldCheck, UserRound, X} from 'lucide-react';
+import {Bell, BookCopy, ChartNoAxesCombined, ChevronRight, LogIn, Menu, ShieldCheck, UserPlus, UserRound, X} from 'lucide-react';
 import { Link, Links, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 const iconMap={
@@ -70,7 +70,29 @@ function Sidebar({
           })}
         </nav>
         <div className={s.footer}>
+          {footerItems.map((item)=>{
+            const Icon=item.icon==="signup"?UserPlus:LogIn;
 
+            if(item.action){
+              return(
+                <button key={item.label} type='button' onClick={item.action} className={`${s.footerButton}${item.kind==='primary'?s.footerButtonPrimary:s.footerButtonSecondary}`}>
+                  <span className={s.footerIconWrapper}>
+                    <Icon size={16}/>{item.label}
+                  </span>
+                  <ChevronRight size={16}/>
+                </button>
+              )
+            }
+
+            return(
+              <Link key={item.label} to={item.href} className={`${s.footerLink}${item.kind==='primary'?s.footerLinkPrimary:s.footerLinkSecondary}`}>
+                <span className={s.footerIconWrapper}>
+                  <Icon size={16}/>{item.label}
+                </span>
+                <ChevronRight size={16}/>
+              </Link>
+            )
+          })}
         </div>
       </aside>
     </>
