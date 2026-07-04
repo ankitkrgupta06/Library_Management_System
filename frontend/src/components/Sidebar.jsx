@@ -28,7 +28,7 @@ function Sidebar({
     <button type="button" onClick={()=>setOpen(true)} className={s.mobileMenuButton}>
       <Menu size={18}/>
     </button>
-    <div className={`${s.mobileOverlay}${open?s.mobileOverlayOpen:s.mobileOverlayClosed}`} onClick={()=>setOpen(false)} />
+    {/* <div className={`${s.mobileOverlay}${open?s.mobileOverlayOpen:s.mobileOverlayClosed}`} onClick={()=>setOpen(false)} /> */}
 
       <aside className={`${s.sidebar}${open?s.sidebarOpen:s.sidebarClosed}`}>
         <div className={`${s.sidebarHeader}`}>
