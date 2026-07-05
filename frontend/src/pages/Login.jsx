@@ -162,7 +162,7 @@ function Login() {
                   Password
                 </span>
                 <div className={s.passwordWrapper}>
-                  <input type={showPassword?"text":"password"} name="password" value={form.email} onChange={handleChange} placeholder="Enter password" className={s.passwordInput}/>
+                  <input type={showPassword?"text":"password"} name="password" value={form.password} onChange={handleChange} placeholder="Enter password" className={s.passwordInput}/>
                   <button type="button" onClick={()=>setShowPassword((current)=>!current)} className={s.togglePasswordButton}>{showPassword?<EyeOff size={17}/>:<Eye size={17}/>}</button>
                 </div>
               </label>
