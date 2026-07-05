@@ -1,6 +1,6 @@
-import Issue from '../models/Issue';
-import User from '../models/User';
-import FineSetting from '../models/FineSetting';
+import Issue from '../models/Issue.js';
+import User from '../models/User.js';
+import FineSetting from '../models/FineSetting.js';
 import { get } from 'mongoose';
 
 const getLocalIsoDate=(value=new Date())=>{

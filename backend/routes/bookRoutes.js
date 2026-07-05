@@ -1,6 +1,6 @@
 import express from 'express';
-import { authenticateToken, authorizeRoles } from '../middlewares/authMiddleware';
-import { applyFine, clearFine, getFineSettings, getIssues, getStudentIssues, updateFineSettings } from '../controllers/bookController';
+import { authenticateToken, authorizeRoles } from '../middlewares/authMiddleware.js';
+import { applyFine, clearFine, getFineSettings, getIssues, getStudentIssues, updateFineSettings } from '../controllers/bookController.js';
 
 const bookRouter=express.Router();
 
