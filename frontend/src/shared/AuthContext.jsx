@@ -34,7 +34,7 @@ export const AuthProvider=({children})=>{
 
   const fetchRegisteredUsers=async(token)=>{
     try {
-      const response=await fetch(`${API_BASE_URI/users}`,{
+      const response=await fetch(`${API_BASE_URL}/users`,{
         headers:{
           Authorization:`Bearer ${token}`,
         },

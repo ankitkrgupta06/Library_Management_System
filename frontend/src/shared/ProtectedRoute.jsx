@@ -6,13 +6,15 @@ import { Navigate, Outlet, useLocation } from 'react-router-dom';
 function ProtectedRoute({allowedRole}) {
   const {currentUser,ready}=useAuth();
   const location=useLocation();
-  return (
+  if(!ready){
+    return (
     <div className={s.loadingContainer}>
       <div className={s.loadingCard}>
         Loading your library workspace
       </div>
     </div>
   )
+  }
 
   if(!currentUser){
     const hasToken=localStorage.getItem("library-auth-token");
