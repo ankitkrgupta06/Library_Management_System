@@ -88,7 +88,7 @@ export const issueManualBooks=async(req,res)=>{
 export const getIssues=async(req,res)=>{
   try {
     const issues=await Issue.find({}).sort({createdAt:-1});
-    req.status(200).json({
+    res.status(200).json({
       success:true,
       issues
     })
