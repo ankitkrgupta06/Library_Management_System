@@ -8,6 +8,9 @@ import AdminLayout from './admin/AdminLayout';
 import AdminDashboardPage from './admin/AdminDashboardPage';
 import AdminBookPage from './admin/AdminBookPage';
 import AdminUsersPage from './admin/AdminUsersPage';
+import AdminFinesPage from './admin/AdminFinesPage';
+import UserDashboardPage from './user/UserDashboardPage';
+import UserLayout from './user/UserLayout';
 
 function App() {
   return (
@@ -22,8 +25,17 @@ function App() {
           <Route path='dashboard' element={<AdminDashboardPage/>}/>
           <Route path='books' element={<AdminBookPage/>}/>
           <Route path='users' element={<AdminUsersPage/>}/>
+          <Route path='fines' element={<AdminFinesPage/>}/>
         </Route>
       </Route>
+
+      <Route element={<ProtectedRoute allowedRole="user"/>}>
+        <Route path='/user' element={<UserLayout/>}>
+          <Route index element={<Navigate to="/user/dashboard" replace/>}/>
+          <Route path='dashboard' element={<UserDashboardPage/>}/>
+        </Route>
+      </Route>
+
     </Routes>
   )
 }
