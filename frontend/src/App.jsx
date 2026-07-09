@@ -7,6 +7,7 @@ import ProtectedRoute from './shared/ProtectedRoute';
 import AdminLayout from './admin/AdminLayout';
 import AdminDashboardPage from './admin/AdminDashboardPage';
 import AdminBookPage from './admin/AdminBookPage';
+import AdminUsersPage from './admin/AdminUsersPage';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route index element={<Navigate to="/admin/dashboard" replace/>}/>
           <Route path='dashboard' element={<AdminDashboardPage/>}/>
           <Route path='books' element={<AdminBookPage/>}/>
+          <Route path='users' element={<AdminUsersPage/>}/>
         </Route>
       </Route>
     </Routes>
