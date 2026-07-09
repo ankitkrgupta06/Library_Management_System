@@ -1,6 +1,6 @@
 import express from 'express';
 import { authenticateToken, authorizeRoles } from '../middlewares/authMiddleware.js';
-import { applyFine, clearFine, getFineSettings, getIssues, getStudentIssues, returnBook, updateFineSettings } from '../controllers/bookController.js';
+import {issueManualBooks, applyFine, clearFine, getFineSettings, getIssues, getStudentIssues, returnBook, updateFineSettings } from '../controllers/bookController.js';
 
 const bookRouter=express.Router();
 
@@ -8,7 +8,7 @@ bookRouter.get('/fine-settings',authenticateToken,getFineSettings);
 bookRouter.get('/issues/students',authenticateToken,authorizeRoles("user"),getStudentIssues);
 
 bookRouter.get('/issues',authenticateToken,authorizeRoles("admin"),getIssues);
-bookRouter.post('/issue-manual',authenticateToken,authorizeRoles("admin"),applyFine);
+bookRouter.post('/issue-manual',authenticateToken,authorizeRoles("admin"),issueManualBooks);
 
 bookRouter.put("/issues/:id/return",authenticateToken,authorizeRoles("admin"),returnBook);
 bookRouter.put("/issues/:id/fine",authenticateToken,authorizeRoles("admin"),applyFine);

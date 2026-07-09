@@ -27,12 +27,17 @@ const calculateFine=(issue,fineRate=10,fineInterval="day")=>{
 
 export const issueManualBooks=async(req,res)=>{
   try {
+    console.log(req.body);
     const {studentDetails,books}=req.body;
+    console.log("Details:",studentDetails);
+    console.log("Books:",books);
+
     if(!Array.isArray(books)||books.length===0){
       return res.status(400).json({message:"No books were entered"});
     }
 
     const student=await User.findOne({rollNo:studentDetails.rollNumber});
+    console.log("Found",student);
     if(!student){
       return res.status(404).json({
         success:false,
@@ -42,7 +47,7 @@ export const issueManualBooks=async(req,res)=>{
 
     const todayIso=getLocalIsoDate();
     const validBooks=books.filter(b=>b.title && b.bookCode && b.dueDate);
-    if(validdBooks.length==0){
+    if(validBooks.length==0){
       return res.status(400).json({
         message:"Please add atleast one valid manual book entry with book code and a due date"
       });
