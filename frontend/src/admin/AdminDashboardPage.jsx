@@ -120,7 +120,7 @@ function AdminDashboardPage() {
             <div className={s.emptyState}>
               No overdue books need urgent attention right now.
             </div>
-          )};
+          )}
         </div>
         {attentionRecords.length?(
           <div className={s.viewMoreContainer}>
@@ -129,7 +129,7 @@ function AdminDashboardPage() {
             <ArrowRight size={16}/>
             </Link>
           </div>
-        ):null};
+        ):null}
       </section>
     </div>
   )

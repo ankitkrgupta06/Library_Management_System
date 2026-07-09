@@ -541,7 +541,7 @@ export const LibraryProvider = ({ children }) => {
     if (!currentUser) return;
     try {
       const isAdmin = currentUser.role === "admin";
-      const issuesUrl = isAdmin ? `${API_BOOKS_URL}/issues` : `${API_BOOKS_URL}/issues/student`;
+      const issuesUrl = isAdmin ? `${API_BOOKS_URL}/issues` : `${API_BOOKS_URL}/issues/students`;
       const response = await fetch(issuesUrl, {
         headers: getHeaders(),
       });
