@@ -11,6 +11,7 @@ import AdminUsersPage from './admin/AdminUsersPage';
 import AdminFinesPage from './admin/AdminFinesPage';
 import UserDashboardPage from './user/UserDashboardPage';
 import UserLayout from './user/UserLayout';
+import UserBooksPage from './user/UserBooksPage';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
         <Route path='/user' element={<UserLayout/>}>
           <Route index element={<Navigate to="/user/dashboard" replace/>}/>
           <Route path='dashboard' element={<UserDashboardPage/>}/>
+          <Route path='books' element={<UserBooksPage/>}/>
         </Route>
       </Route>
 

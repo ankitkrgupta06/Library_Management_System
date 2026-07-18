@@ -4,6 +4,7 @@ import { AlertTriangle, BookCopy, GraduationCap, IdCard, ReceiptText, Sparkles }
 import { useAuth } from '../shared/AuthContext';
 import { useLibrary } from '../shared/LibraryContext';
 import { Link } from 'react-router-dom';
+import UserBookCard from './UserBookCard';
 
 function UserDashboardPage() {
 
